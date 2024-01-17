@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  pkgs-unstable,
   ...
 }: {
   home = {
@@ -21,6 +22,9 @@
     rustup
     clang
     nodejs
+    (pkgs-unstable.elixir_1_16.override {
+      erlang = pkgs-unstable.erlang_26;
+    })
 
     # Programming language tools
     alejandra

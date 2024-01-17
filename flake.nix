@@ -24,12 +24,12 @@
       system = "x86_64-linux";
 
       pkgs = mkPkgs {
-        inherit (inputs) nixpkgs;
         inherit system;
+        nixpkgs = inputs.nixpkgs;
       };
       pkgs-unstable = mkPkgs {
-        inherit (inputs) nixpkgs-unstable;
         inherit system;
+        nixpkgs = inputs.nixpkgs-unstable;
       };
     in
       inputs.nixpkgs.lib.nixosSystem {
