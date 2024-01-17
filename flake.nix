@@ -20,7 +20,9 @@
       config.allowUnfree = true;
     });
   in {
-    nixosConfigurations.nixos = let
+    nixosConfigurations = let
+      inherit (inputs.nixpkgs.lib) nixosSystem;
+
       system = "x86_64-linux";
 
       pkgs = mkPkgs {
@@ -31,8 +33,8 @@
         inherit system;
         nixpkgs = inputs.nixpkgs-unstable;
       };
-    in
-      inputs.nixpkgs.lib.nixosSystem {
+    in {
+      hebra = nixosSystem {
         inherit system;
 
         specialArgs = {inherit pkgs-unstable;};
@@ -45,13 +47,12 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              extraSpecialArgs = {
-                inherit pkgs-unstable;
-              };
+              extraSpecialArgs = {inherit pkgs-unstable;};
               users."luiz" = import ./home/home.nix;
             };
           }
         ];
       };
+    };
   };
 }
