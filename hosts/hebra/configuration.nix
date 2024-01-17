@@ -1,17 +1,19 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ({options, lib, ...}: lib.mkIf (options ? virtualisation.memorySize) {
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [
+    ./hardware-configuration.nix
+    ({
+      options,
+      lib,
+      ...
+    }:
+      lib.mkIf (options ? virtualisation.memorySize) {
         users.users.luiz.password = "test";
       })
-    ];
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -89,18 +91,8 @@
   users.users.luiz = {
     isNormalUser = true;
     description = "Luiz Felipe";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      firefox
-      logseq
-      brave
-
-      cargo
-      nodejs
-    #  thunderbird
-    ];
-
-    initialHashedPassword = "test";
+    extraGroups = ["networkmanager" "wheel"];
+    packages = [];
   };
 
   programs.steam.enable = true;
@@ -113,14 +105,14 @@
 
   nix = {
     package = pkgs.nix;
-    settings.experimental-features = [ "nix-command" "flakes" ];
+    settings.experimental-features = ["nix-command" "flakes"];
   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
+    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #  wget
     vim
     git
     neovim
@@ -152,6 +144,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
-
 }
-
