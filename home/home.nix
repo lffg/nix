@@ -4,6 +4,10 @@
   pkgs-unstable,
   ...
 }: {
+  imports = [
+    ./git.nix
+  ];
+
   home = {
     username = "luiz";
     homeDirectory = "/home/luiz";
@@ -12,6 +16,11 @@
   };
 
   home.packages = with pkgs; [
+    # Command-line tools
+    git
+    vim
+    neovim
+
     # Applications, GUIs, etc
     alacritty
     logseq
