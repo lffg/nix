@@ -37,7 +37,7 @@
       hebra = nixosSystem {
         inherit system;
 
-        specialArgs = {inherit pkgs-unstable;};
+        specialArgs = {inherit inputs pkgs-unstable;};
 
         modules = [
           ./hosts/hebra/configuration.nix
@@ -47,7 +47,7 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              extraSpecialArgs = {inherit pkgs-unstable;};
+              extraSpecialArgs = {inherit inputs pkgs-unstable;};
               users."luiz" = import ./home/home.nix;
             };
           }
