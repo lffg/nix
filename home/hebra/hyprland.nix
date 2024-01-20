@@ -1,10 +1,26 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  inherit (builtins) map toString;
+  inherit (pkgs.lib) range;
+  inherit (pkgs.lib.lists) flatten;
+
+  flatValues = set: flatten (pkgs.lib.attrsets.attrValues set);
+in {
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = true;
     enableNvidiaPatches = true;
     xwayland.enable = true;
   };
+
+  home.packages = with pkgs; [
+    # Bar
+    waybar
+    # Notifications
+    dunst
+    libnotify
+    # App launcher
+    wofi
+  ];
 
   wayland.windowManager.hyprland.settings = let
     s = "SUPER";
@@ -13,18 +29,33 @@
       kb_layout = "us";
       kb_variant = "intl";
     };
-    bind = let
-      alacritty = "${pkgs.alacritty}/bin/alacritty";
-      wofi = "${pkgs.wofi}/bin/wofi";
+
+    bind = flatValues {
+      main = let
+        alacritty = "${pkgs.alacritty}/bin/alacritty";
+        wofi = "${pkgs.wofi}/bin/wofi";
+      in [
+        "${s}, Q, killactive"
+        "${s}, T, exec, ${alacritty}"
+        "${s}, R, exec, ${wofi} --show drun"
+      ];
+
+      # Switch to workspace and move to workspace binds.
+      workspaces = let
+        f = n: [
+          "${s}, ${n}, workspace, ${n}"
+          "${s} SHIFT, ${n}, movetoworkspace, ${n}"
+        ];
+      in
+        flatten (map (n: f (toString n)) (range 1 9));
+    };
+
+    bindm = let
+      mouseLeft = "272";
+      mouseRight = "273";
     in [
-      "${s}, Q, killactive"
-      "${s}, T, exec, ${alacritty}"
-      "${s}, R, exec, ${wofi} --show drun"
-    ];
-    bindm = [
-      # Move/resize windows with mainMod + LMB/RMB and dragging
-      "${s}, mouse:272, movewindow"
-      "${s}, mouse:273, resizewindow"
+      "${s}, mouse:${mouseLeft}, movewindow"
+      "${s}, mouse:${mouseRight}, resizewindow"
     ];
   };
 
@@ -41,14 +72,4 @@
     ];
     configPackages = [pkgs.hyprland];
   };
-
-  home.packages = with pkgs; [
-    # Bar
-    waybar
-    # Notifications
-    dunst
-    libnotify
-    # App launcher
-    wofi
-  ];
 }
