@@ -7,8 +7,7 @@
     ./hardware-configuration.nix
     ./system.nix
     ./locale.nix
-    ./gnome.nix
-    # ./hyprland.nix
+    # ./gnome.nix
     ./vm.nix
   ];
 

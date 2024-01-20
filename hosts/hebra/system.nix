@@ -13,6 +13,11 @@
     };
   };
 
+  hardware = {
+    opengl.enable = true;
+    nvidia.modesetting.enable = true;
+  };
+
   networking = {
     hostName = "hebra";
     networkmanager.enable = true;

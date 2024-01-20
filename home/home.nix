@@ -5,6 +5,7 @@
   ...
 }: {
   imports = [
+    ./hebra/hyprland.nix
     ./git.nix
   ];
 
@@ -13,6 +14,7 @@
     homeDirectory = "/home/luiz";
 
     stateVersion = "23.11";
+    enableNixpkgsReleaseCheck = false;
   };
 
   home.packages = with pkgs; [
