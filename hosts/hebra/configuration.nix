@@ -8,6 +8,7 @@
     ./system.nix
     ./locale.nix
     ./gnome.nix
+    # ./hyprland.nix
     ./vm.nix
   ];
 
