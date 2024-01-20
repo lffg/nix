@@ -6,6 +6,7 @@
 }: {
   imports = [
     ./hebra/hyprland.nix
+    ./fonts.nix
     ./git.nix
   ];
 
