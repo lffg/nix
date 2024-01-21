@@ -1,9 +1,23 @@
-{pkgs, pkgs-unstable, ...}: {
+{
+  pkgs,
+  pkgs-unstable,
+  ...
+}: {
   home.packages = with pkgs; [
     # Command-line tools
     git
     vim
     neovim
+    bat
+    eza
+    httpie
+    gnutar
+    zstd
+    coreutils
+    curl
+    jq
+    hexyl
+    tokei
 
     # Applications, GUIs, etc
     alacritty
