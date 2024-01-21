@@ -10,8 +10,11 @@
       description = "Luiz Felipe";
       extraGroups = ["networkmanager" "wheel"];
       packages = [];
+      shell = pkgs.zsh;
     };
   };
+
+  programs.zsh.enable = true;
 
   hardware = {
     opengl.enable = true;

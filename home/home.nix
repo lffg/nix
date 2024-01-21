@@ -9,6 +9,8 @@
     ./fonts.nix
     ./pkgs.nix
     ./git.nix
+    ./vscode.nix
+    ./zsh.nix
   ];
 
   home = {
