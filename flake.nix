@@ -12,32 +12,30 @@
   };
 
   outputs = inputs @ {self, ...}: let
-    mkPkgs = {
-      nixpkgs,
-      system,
-    }: (import nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-    });
+    importPkgsSets = system: let
+      importPkgs = i: (import i {
+        inherit system;
+        config.allowUnfree = true;
+      });
+    in {
+      pkgs = importPkgs inputs.nixpkgs;
+      pkgs-unstable = importPkgs inputs.nixpkgs-unstable;
+    };
+
+    vars = {
+      user.name = "luiz";
+    };
   in {
     nixosConfigurations = let
-      inherit (inputs.nixpkgs.lib) nixosSystem;
-
       system = "x86_64-linux";
-
-      pkgs = mkPkgs {
-        inherit system;
-        nixpkgs = inputs.nixpkgs;
-      };
-      pkgs-unstable = mkPkgs {
-        inherit system;
-        nixpkgs = inputs.nixpkgs-unstable;
-      };
+      inherit (importPkgsSets system) pkgs pkgs-unstable;
     in {
-      hebra = nixosSystem {
+      hebra = inputs.nixpkgs.lib.nixosSystem {
         inherit system;
 
-        specialArgs = {inherit inputs pkgs-unstable;};
+        specialArgs = {
+          inherit inputs pkgs-unstable vars;
+        };
 
         modules = [
           ./hosts/hebra/configuration.nix
@@ -47,8 +45,10 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              extraSpecialArgs = {inherit inputs pkgs-unstable;};
-              users."luiz" = import ./home/home.nix;
+              extraSpecialArgs = {
+                inherit inputs pkgs-unstable vars;
+              };
+              users.${vars.user.name} = import ./home/home.nix;
             };
           }
         ];

@@ -1,8 +1,9 @@
 {
   options,
   lib,
+  vars,
   ...
 }:
 lib.mkIf (options ? virtualisation.memorySize) {
-  users.users.luiz.password = "test";
+  users.users.${vars.user.name}.password = "test";
 }

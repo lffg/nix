@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  vars,
   ...
 }: {
   imports = [
@@ -37,7 +38,7 @@
   };
 
   users.users = {
-    luiz = {
+    ${vars.user.name} = {
       isNormalUser = true;
       description = "Luiz Felipe";
       extraGroups = ["networkmanager" "wheel"];

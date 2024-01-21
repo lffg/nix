@@ -2,6 +2,7 @@
   config,
   pkgs,
   pkgs-unstable,
+  vars,
   ...
 }: {
   imports = [
@@ -13,9 +14,9 @@
     ./zsh.nix
   ];
 
-  home = {
-    username = "luiz";
-    homeDirectory = "/home/luiz";
+  home = rec {
+    username = vars.user.name;
+    homeDirectory = "/home/${username}";
 
     stateVersion = "23.11";
     enableNixpkgsReleaseCheck = false;
