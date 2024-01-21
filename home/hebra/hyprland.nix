@@ -96,8 +96,6 @@ in {
     ];
 
     bindl = flatValues {
-      # TODO: Get status of `/proc/acpi/button/lid/LID/state` during startup to
-      # check whether Hyprland already started with the monitor with its lid down.
       lid-toggle = let
         switch = "Lid Switch";
       in [
