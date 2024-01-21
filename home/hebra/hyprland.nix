@@ -2,8 +2,40 @@
   inherit (builtins) map toString;
   inherit (pkgs.lib) range;
   inherit (pkgs.lib.lists) flatten;
+  inherit (pkgs.lib.attrsets) attrValues mapAttrs mapAttrsToList;
 
-  flatValues = set: flatten (pkgs.lib.attrsets.attrValues set);
+  flatValues = set: flatten (attrValues set);
+
+  #  ----------    --------
+  # | primary  |  | laptop |
+  #  ----------    --------
+  monitors = rec {
+    primary = {
+      name = "HDMI-A-2";
+      width = 1920;
+      height = 1080;
+      x = 0;
+      scale = 1;
+    };
+    laptop = {
+      name = "eDP-1";
+      width = 3840;
+      height = 2160;
+      x = primary.width;
+      scale = 3;
+    };
+  };
+
+  monitorConfigs =
+    mapAttrs (
+      _: m: let
+        size = "${toString m.width}x${toString m.height}";
+        position = "${toString m.x}x0";
+      in
+        # name, resolution, position, scale
+        "${m.name}, ${size}, ${position}, ${toString m.scale}"
+    )
+    monitors;
 in {
   wayland.windowManager.hyprland = {
     enable = true;
@@ -57,6 +89,20 @@ in {
       "${s}, mouse:${mouseLeft}, movewindow"
       "${s}, mouse:${mouseRight}, resizewindow"
     ];
+
+    bindl = flatValues {
+      # TODO: Get status of `/proc/acpi/button/lid/LID/state` during startup to
+      # check whether Hyprland already started with the monitor with its lid down.
+      lid-toggle = let
+        switch = "Lid Switch";
+      in [
+        # Confusingly, off->open and on->closed.
+        ", switch:off:${switch}, exec, hyprctl keyword monitor '${monitorConfigs.laptop}'"
+        ",  switch:on:${switch}, exec, hyprctl keyword monitor '${monitors.laptop.name}, disable'"
+      ];
+    };
+
+    monitor = attrValues monitorConfigs;
   };
 
   home.sessionVariables = {
