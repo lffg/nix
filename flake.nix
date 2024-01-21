@@ -22,15 +22,11 @@
       pkgs-unstable = importPkgs inputs.nixpkgs-unstable;
     };
 
-    vars = {
-      user.name = "luiz";
-    };
-  in {
-    nixosConfigurations = let
-      system = "x86_64-linux";
+    mkNixosConfiguration = vars: let
+      inherit (vars) system;
       inherit (importPkgsSets system) pkgs pkgs-unstable;
-    in {
-      hebra = inputs.nixpkgs.lib.nixosSystem {
+    in
+      inputs.nixpkgs.lib.nixosSystem {
         inherit system;
 
         specialArgs = {
@@ -38,7 +34,7 @@
         };
 
         modules = [
-          ./hosts/hebra/configuration.nix
+          (./hosts + "/${vars.host.name}" + /configuration.nix)
 
           inputs.home-manager.nixosModules.home-manager
           {
@@ -52,6 +48,13 @@
             };
           }
         ];
+      };
+  in {
+    nixosConfigurations = {
+      hebra = mkNixosConfiguration {
+        system = "x86_64-linux";
+        host.name = "hebra";
+        user.name = "luiz";
       };
     };
   };

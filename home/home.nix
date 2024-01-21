@@ -5,14 +5,17 @@
   vars,
   ...
 }: {
-  imports = [
-    ./hebra/hyprland.nix
-    ./fonts.nix
-    ./pkgs.nix
-    ./git.nix
-    ./vscode.nix
-    ./zsh.nix
-  ];
+  imports = let
+    commonModules = [
+      ./fonts.nix
+      ./pkgs.nix
+      ./git.nix
+      ./vscode.nix
+      ./zsh.nix
+    ];
+    hostModules = import (./. + "/${vars.host.name}" + /default.nix);
+  in
+    commonModules ++ hostModules;
 
   home = rec {
     username = vars.user.name;

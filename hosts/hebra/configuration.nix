@@ -55,7 +55,7 @@
   };
 
   networking = {
-    hostName = "hebra";
+    hostName = vars.host.name;
     networkmanager.enable = true;
   };
 
