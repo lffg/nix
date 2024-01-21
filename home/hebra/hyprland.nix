@@ -103,6 +103,10 @@ in {
     };
 
     monitor = attrValues monitorConfigs;
+
+    misc = {
+      force_default_wallpaper = "0";
+    };
   };
 
   home.sessionVariables = {
