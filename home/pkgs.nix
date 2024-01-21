@@ -20,7 +20,6 @@
     tokei
 
     # Applications, GUIs, etc
-    alacritty
     logseq
     brave
     spotify

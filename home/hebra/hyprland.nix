@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  config,
+  pkgs,
+  ...
+}: let
   inherit (builtins) map toString;
   inherit (pkgs.lib) range;
   inherit (pkgs.lib.lists) flatten;
@@ -64,7 +68,8 @@ in {
 
     bind = flatValues {
       main = let
-        alacritty = "${pkgs.alacritty}/bin/alacritty";
+        inherit (config) programs;
+        alacritty = "${programs.alacritty.package}/bin/alacritty";
         wofi = "${pkgs.wofi}/bin/wofi";
       in [
         "${s}, Q, killactive"
