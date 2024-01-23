@@ -88,6 +88,15 @@ in {
         "super, r, exec, ${wofi} --show drun"
       ];
 
+      audio = let
+        pactl = "${pkgs.pulseaudio}/bin/pactl";
+      in [
+        ", XF86AudioRaiseVolume, exec, ${pactl} set-sink-volume @DEFAULT_SINK@   +5%"
+        ", XF86AudioLowerVolume, exec, ${pactl} set-sink-volume @DEFAULT_SINK@   -5%"
+        ", XF86AudioMute,        exec, ${pactl} set-sink-mute   @DEFAULT_SINK@   toggle"
+        "shift, XF86AudioMute,   exec, ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
+      ];
+
       # Switch to workspace and move to workspace binds.
       workspaces = let
         f = n: [
