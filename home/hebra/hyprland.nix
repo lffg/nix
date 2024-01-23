@@ -58,41 +58,61 @@ in {
     wofi
   ];
 
-  wayland.windowManager.hyprland.settings = let
-    s = "SUPER";
-  in {
+  wayland.windowManager.hyprland.settings = {
     input = {
       kb_layout = "us";
       kb_variant = "intl";
     };
 
     bind = flatValues {
-      main = let
+      main = [
+        "super, q, killactive"
+        "super, f, togglefloating"
+        "super, g, fullscreen"
+
+        "super, left, movefocus, l"
+        "super, right, movefocus, r"
+        "super, up, movefocus, u"
+        "super, down, movefocus, d"
+
+        "super, s, togglespecialworkspace, magic"
+        "super shift, s, movetoworkspace, special:magic"
+      ];
+
+      launchers = let
         inherit (config) programs;
         alacritty = "${programs.alacritty.package}/bin/alacritty";
         wofi = "${pkgs.wofi}/bin/wofi";
       in [
-        "${s}, Q, killactive"
-        "${s}, T, exec, ${alacritty}"
-        "${s}, R, exec, ${wofi} --show drun"
+        "super, t, exec, ${alacritty}"
+        "super, r, exec, ${wofi} --show drun"
       ];
 
       # Switch to workspace and move to workspace binds.
       workspaces = let
         f = n: [
-          "${s}, ${n}, workspace, ${n}"
-          "${s} SHIFT, ${n}, movetoworkspace, ${n}"
+          "super, ${n}, workspace, ${n}"
+          "super shift, ${n}, movetoworkspace, ${n}"
+        ];
+
+        absolute = flatten (map (n: f (toString n)) (range 1 9));
+
+        relative = [
+          "super shift, left, workspace, -1"
+          "super shift, right, workspace, +1"
+          "r_control, left, workspace, -1"
+          "r_control, right, workspace, +1"
         ];
       in
-        flatten (map (n: f (toString n)) (range 1 9));
+        absolute ++ relative;
     };
 
     bindm = let
       mouseLeft = "272";
       mouseRight = "273";
     in [
-      "${s}, mouse:${mouseLeft}, movewindow"
-      "${s}, mouse:${mouseRight}, resizewindow"
+      "super, mouse:${mouseLeft}, movewindow"
+      "super, mouse:${mouseRight}, resizewindow"
     ];
 
     bindl = flatValues {
