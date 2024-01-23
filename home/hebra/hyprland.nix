@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  inputs,
   ...
 }: let
   inherit (builtins) map toString;
@@ -95,6 +96,13 @@ in {
         ", XF86AudioLowerVolume, exec, ${pactl} set-sink-volume @DEFAULT_SINK@   -5%"
         ", XF86AudioMute,        exec, ${pactl} set-sink-mute   @DEFAULT_SINK@   toggle"
         "shift, XF86AudioMute,   exec, ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
+      ];
+
+      screenshot = let
+        # TODO: Maybe use overlay in home-manager's main definition?
+        grimblast = "${inputs.hyprland-contrib.packages.${pkgs.system}.grimblast}/bin/grimblast";
+      in [
+        "super, p, exec, ${grimblast} --notify --freeze copy area"
       ];
 
       # Switch to workspace and move to workspace binds.
