@@ -7,11 +7,6 @@ in {
     userName = "Luiz Felipe Gonçalves";
     userEmail = "git@luizfelipe.dev";
 
-    # signing = {
-    #   signByDefault = true;
-    #   key = "...";
-    # };
-
     extraConfig = {
       core = {
         ignorecase = "false";
@@ -20,19 +15,9 @@ in {
 
       pull.rebase = "true";
       init.defaultBranch = "main";
-
-      # commit.gpgsign = "true";
-      # gpg.program = "gpg2";
-
-      # protocol.keybase.allow = "always";
-      # credential.helper = "osxkeychain";
-
-      # user = {
-      #   signingkey = "63391D9963236F36";
-      # };
     };
 
-    delta.enable = true;
+    difftastic.enable = true;
 
     aliases = {
       l = "log --oneline";
