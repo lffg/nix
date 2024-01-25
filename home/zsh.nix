@@ -3,7 +3,15 @@
   config,
   ...
 }: let
-  home = config.home.homeDirectory;
+  inherit (pkgs.lib.strings) concatStringsSep;
+  inherit (pkgs.stdenv) isLinux;
+
+  maybeString = pred: s:
+    if pred
+    then s
+    else "";
+
+  inherit (config.home) homeDirectory username;
 in {
   programs.zsh = {
     enable = true;
@@ -33,8 +41,15 @@ in {
 
       # Nix-related utilities:
       nd = "nix develop '.#' --command ${pkgs.zsh}";
-      ncfg = "code ${home}/ncfg";
+      ncfg = "code ${homeDirectory}/ncfg";
     };
+
+    initExtra = concatStringsSep "\n\n" [
+      (maybeString isLinux ''
+        unset __HM_SESS_VARS_SOURCED
+        . /etc/profiles/per-user/${username}/etc/profile.d/hm-session-vars.sh
+      '')
+    ];
   };
 
   programs.starship = {
