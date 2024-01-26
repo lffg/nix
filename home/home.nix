@@ -11,7 +11,7 @@
       ./pkgs.nix
       ./git.nix
       ./vscode.nix
-      ./zsh.nix
+      ./fish.nix
     ];
     hostModules = import (./. + "/${vars.host.name}" + /default.nix);
   in

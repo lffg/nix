@@ -44,11 +44,11 @@
       description = "Luiz Felipe";
       extraGroups = ["networkmanager" "wheel"];
       packages = [];
-      shell = pkgs.zsh;
+      shell = pkgs.fish;
     };
   };
 
-  programs.zsh.enable = true;
+  programs.fish.enable = true;
 
   hardware = {
     opengl.enable = true;
