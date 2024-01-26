@@ -5,9 +5,10 @@
   ...
 }: let
   inherit (builtins) map toString;
-  inherit (pkgs.lib) range;
-  inherit (pkgs.lib.lists) flatten;
-  inherit (pkgs.lib.attrsets) attrValues mapAttrs mapAttrsToList;
+  inherit (pkgs) lib;
+  inherit (lib) range;
+  inherit (lib.lists) flatten;
+  inherit (lib.attrsets) attrValues mapAttrs mapAttrsToList;
 
   flatValues = set: flatten (attrValues set);
 
@@ -80,7 +81,7 @@ in {
         "super shift, s, movetoworkspace, special:magic"
       ];
 
-      launchers = let
+      applications = let
         inherit (config) programs;
         alacritty = "${programs.alacritty.package}/bin/alacritty";
         wofi = "${pkgs.wofi}/bin/wofi";
@@ -89,7 +90,7 @@ in {
         "super, r, exec, ${wofi} --show drun"
       ];
 
-      audio = let
+      audio-volume-control = let
         pactl = "${pkgs.pulseaudio}/bin/pactl";
       in [
         ", XF86AudioRaiseVolume, exec, ${pactl} set-sink-volume @DEFAULT_SINK@   +5%"
@@ -97,6 +98,22 @@ in {
         ", XF86AudioMute,        exec, ${pactl} set-sink-mute   @DEFAULT_SINK@   toggle"
         "shift, XF86AudioMute,   exec, ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
       ];
+
+      media-control = let
+        pkg = config.services.playerctld.package;
+        playerctl = "${pkg}/bin/playerctl";
+        playerctld = "${pkg}/bin/playerctld";
+      in
+        lib.lists.optionals config.services.playerctld.enable [
+          (lib.optionals config.services.playerctld.enable [
+            ",      XF86AudioNext, exec, ${playerctl}  next"
+            ",      XF86AudioPrev, exec, ${playerctl}  previous"
+            ",      XF86AudioPlay, exec, ${playerctl}  play-pause"
+            "shift, XF86AudioNext, exec, ${playerctld} shift"
+            "shift, XF86AudioPrev, exec, ${playerctld} unshift"
+            "shift, XF86AudioPlay, exec, systemctl --user restart playerctld"
+          ])
+        ];
 
       screenshot = let
         # TODO: Maybe use overlay in home-manager's main definition?
@@ -106,7 +123,7 @@ in {
       ];
 
       # Switch to workspace and move to workspace binds.
-      workspaces = let
+      workspace = let
         f = n: [
           "super, ${n}, workspace, ${n}"
           "super shift, ${n}, movetoworkspace, ${n}"
