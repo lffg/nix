@@ -32,13 +32,17 @@ in {
       ncfg = "code ${homeDirectory}/ncfg";
     };
 
+    functions = {
+      fish_command_not_found = {
+        body = ''
+          echo "'$argv[1]' not found" 1>&2
+        '';
+        onEvent = "fish_command_not_found";
+      };
+    };
+
     shellInit = ''
       set fish_greeting
-
-      function __fish_default_command_not_found_handler --on-event fish_command_not_found
-        functions --erase __fish_command_not_found_setup
-        echo "'$argv' not found"
-      end
     '';
   };
 }
