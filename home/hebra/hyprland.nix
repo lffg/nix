@@ -68,7 +68,7 @@ in {
 
     bind = flatValues {
       main = [
-        "super, q, killactive"
+        "super shift, q, killactive"
         "super, f, togglefloating"
         "super, g, fullscreen"
 
