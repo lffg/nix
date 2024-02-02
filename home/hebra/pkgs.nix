@@ -13,6 +13,9 @@ in {
     # Make openssl visible throughout the system
     openssl
     pkg-config
+
+    # GUI applications
+    okular
   ];
 
   home.sessionVariables = {
