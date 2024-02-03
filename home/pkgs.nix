@@ -3,6 +3,10 @@
   pkgs-unstable,
   ...
 }: {
+  imports = [
+    ./pkgs/pg.nix
+  ];
+
   home.packages = with pkgs; [
     # Command-line tools
     git
