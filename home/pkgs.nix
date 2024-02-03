@@ -14,6 +14,7 @@
     neovim
     bat
     eza
+    htop
     httpie
     gnutar
     zstd
