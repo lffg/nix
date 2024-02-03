@@ -20,7 +20,7 @@
     tokei
 
     # Applications, GUIs, etc
-    logseq
+    pkgs-unstable.logseq
     brave
     spotify
 
