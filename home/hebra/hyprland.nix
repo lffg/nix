@@ -72,6 +72,11 @@ in {
       kb_variant = "intl";
     };
 
+    general = {
+      gaps_in = 5;
+      gaps_out = 10;
+    };
+
     exec-once = [
       "bg-init"
       "bg-next ~/Documents/Wallpapers"

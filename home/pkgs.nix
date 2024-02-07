@@ -18,6 +18,7 @@
     httpie
     gnutar
     zstd
+    fd
     coreutils
     curl
     jq
