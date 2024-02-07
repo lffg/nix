@@ -42,6 +42,8 @@
         "${m.name}, ${size}, ${position}, ${toString m.scale}"
     )
     monitors;
+
+  bg-pkgs = import ./hyprland/swww.nix {inherit pkgs;};
 in {
   wayland.windowManager.hyprland = {
     enable = true;
@@ -51,6 +53,10 @@ in {
   };
 
   home.packages = with pkgs; [
+    # Wallpaper (wrappers and the current underlying pkg)
+    bg-pkgs.bg-init
+    bg-pkgs.bg-next
+    swww
     # Bar
     waybar
     # Notifications
@@ -65,6 +71,11 @@ in {
       kb_layout = "us";
       kb_variant = "intl";
     };
+
+    exec-once = [
+      "bg-init"
+      "bg-next ~/Documents/Wallpapers"
+    ];
 
     bind = flatValues {
       main = [
