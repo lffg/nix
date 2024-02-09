@@ -78,8 +78,7 @@ in {
     };
 
     exec-once = [
-      "bg-init"
-      "bg-next ~/Documents/Wallpapers"
+      "bg-init && bg-next ~/Documents/Wallpapers"
     ];
 
     bind = flatValues {
