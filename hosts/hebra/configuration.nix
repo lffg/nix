@@ -8,6 +8,7 @@
     ./hardware-configuration.nix
     ./vm.nix
     ./io.nix
+    ./fonts.nix
   ];
 
   nixpkgs.config = {
