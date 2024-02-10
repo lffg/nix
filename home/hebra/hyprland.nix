@@ -46,6 +46,7 @@
   bg-pkgs = import ./hyprland/swww.nix {inherit pkgs;};
 in {
   imports = [
+    ./hyprland/notifications.nix
     ./hyprland/wp.nix
   ];
 
@@ -59,9 +60,6 @@ in {
   home.packages = with pkgs; [
     # Bar
     waybar
-    # Notifications
-    dunst
-    libnotify
     # App launcher
     wofi
   ];
