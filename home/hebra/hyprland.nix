@@ -45,6 +45,10 @@
 
   bg-pkgs = import ./hyprland/swww.nix {inherit pkgs;};
 in {
+  imports = [
+    ./hyprland/wp.nix
+  ];
+
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = true;
@@ -53,10 +57,6 @@ in {
   };
 
   home.packages = with pkgs; [
-    # Wallpaper (wrappers and the current underlying pkg)
-    bg-pkgs.bg-init
-    bg-pkgs.bg-next
-    swww
     # Bar
     waybar
     # Notifications
@@ -76,10 +76,6 @@ in {
       gaps_in = 5;
       gaps_out = 10;
     };
-
-    exec-once = [
-      "bg-init && bg-next ~/Documents/Wallpapers"
-    ];
 
     bind = flatValues {
       main = [
