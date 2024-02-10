@@ -47,6 +47,7 @@
 in {
   imports = [
     ./hyprland/notifications.nix
+    ./hyprland/volume.nix
     ./hyprland/wp.nix
   ];
 
@@ -100,12 +101,12 @@ in {
       ];
 
       audio-volume-control = let
-        pactl = "${pkgs.pulseaudio}/bin/pactl";
+        volume = "${config.lffg.volume.package}/bin/volume";
       in [
-        ", XF86AudioRaiseVolume, exec, ${pactl} set-sink-volume @DEFAULT_SINK@   +5%"
-        ", XF86AudioLowerVolume, exec, ${pactl} set-sink-volume @DEFAULT_SINK@   -5%"
-        ", XF86AudioMute,        exec, ${pactl} set-sink-mute   @DEFAULT_SINK@   toggle"
-        "shift, XF86AudioMute,   exec, ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
+        ", XF86AudioRaiseVolume, exec, ${volume} sink incr"
+        ", XF86AudioLowerVolume, exec, ${volume} sink decr"
+        ", XF86AudioMute,        exec, ${volume} sink toggle"
+        "shift, XF86AudioMute,   exec, ${volume} source toggle"
       ];
 
       media-control = let
