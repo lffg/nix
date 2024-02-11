@@ -12,8 +12,9 @@ in {
     swww
   ];
 
-  wayland.windowManager.hyprland.settings = {
-    exec-once = ["wp init"];
-    exec = ["wp next"];
-  };
+  # These are order sensitive, so we use `extraConfig`
+  wayland.windowManager.hyprland.extraConfig = ''
+    exec-once = wp init
+    exec = wp next
+  '';
 }
