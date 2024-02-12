@@ -144,8 +144,8 @@ in {
         relative = [
           "super shift, left, workspace, -1"
           "super shift, right, workspace, +1"
-          "r_control, left, workspace, -1"
-          "r_control, right, workspace, +1"
+          # "r_control, left, workspace, -1"
+          # "r_control, right, workspace, +1"
         ];
       in
         absolute ++ relative;
