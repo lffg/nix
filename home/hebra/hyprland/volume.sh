@@ -18,6 +18,14 @@ get_volume() {
         perl -ne '/(\d+)%/ && print "$1"'
 }
 
+# @param: "incr" or "decr"
+increase_factor() {
+    case "$1" in
+        "incr") echo "+10%";;
+        "decr") echo "-10%";;
+    esac
+}
+
 bar() {
     echo "$@" > "$XDG_RUNTIME_DIR/wob.sock"
 }
@@ -46,13 +54,9 @@ case "$cmd" in
                 fi
                 ;;
 
-            "incr")
-                pactl set-sink-volume "@DEFAULT_SINK@" "+10%"
-                bar "$(get_volume "sink")"
-                ;;
-
-            "decr")
-                pactl set-sink-volume "@DEFAULT_SINK@" "-10%"
+            "incr" | "decr")
+                pactl set-sink-mute "@DEFAULT_SINK@" "0"
+                pactl set-sink-volume "@DEFAULT_SINK@" "$(increase_factor "$action")"
                 bar "$(get_volume "sink")"
                 ;;
 
