@@ -1,5 +1,6 @@
 {
   pkgs,
+  pkgs-unstable,
   inputs,
   ...
 }: let
@@ -16,6 +17,10 @@ in {
 
     # GUI applications
     okular
+    # We install these via Homebrew on Darwin
+    pkgs-unstable.logseq
+    brave
+    spotify
   ];
 
   home.sessionVariables = {

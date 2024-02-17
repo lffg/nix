@@ -5,6 +5,7 @@
   ...
 }: {
   imports = [
+    ../../shared/nix.nix
     ./hardware-configuration.nix
     ./vm.nix
     ./io.nix
@@ -13,14 +14,6 @@
 
   nixpkgs.config = {
     allowUnfree = true;
-  };
-
-  nix = {
-    package = pkgs.nix;
-    settings.experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
   };
 
   # This value determines the NixOS release from which the default

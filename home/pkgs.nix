@@ -26,13 +26,12 @@
     tokei
 
     # Applications, GUIs, etc
-    pkgs-unstable.logseq
-    brave
-    spotify
+    # pkgs-unstable.logseq
+    # brave
+    # spotify
 
     # Programming languages, toolchains, and compilers
     rustup
-    clang
     nodejs
     (pkgs-unstable.elixir_1_16.override {
       erlang = pkgs-unstable.erlang_26;

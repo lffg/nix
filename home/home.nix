@@ -7,19 +7,21 @@
 }: {
   imports = let
     commonModules = [
+      ../shared/nix.nix
       ./fonts.nix
       ./pkgs.nix
       ./git.nix
       ./vscode.nix
+      ./security.nix
       ./fish.nix
     ];
     hostModules = import (./. + "/${vars.host.name}" + /default.nix);
   in
     commonModules ++ hostModules;
 
-  home = rec {
+  home = {
     username = vars.user.name;
-    homeDirectory = "/home/${username}";
+    homeDirectory = vars.user.home;
 
     stateVersion = "23.11";
     enableNixpkgsReleaseCheck = false;

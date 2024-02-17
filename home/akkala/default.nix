@@ -1,0 +1,3 @@
+[
+  ../shared/darwin/pkgs.nix
+]

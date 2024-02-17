@@ -1,20 +1,35 @@
 {
   pkgs,
   config,
+  vars,
   lib,
   ...
 }: let
+  inherit (pkgs.stdenv) isDarwin;
   inherit (config.home) homeDirectory;
 in {
+  # XX: Maybe I should just give up and use nix-darwin
+  # with a declarative Homebrew integration?
+  home.file.".zshrc".text = ''
+    [[ -f /opt/homebrew/bin/brew ]] &&\
+      eval "$(/opt/homebrew/bin/brew shellenv)"
+
+    exec fish
+  '';
+
   programs.fish = {
     enable = true;
 
     shellAliases = {
+      psqll = "PAGER='less -S' psql";
+
+      nd = "nix develop '.#' --command ${pkgs.fish}/bin/fish";
+    };
+
+    shellAbbrs = {
       # General commands:
       g = "git";
       cls = "clear";
-      # del = "trash";
-      psqll = "PAGER='less -S' psql";
 
       p = "pnpm";
 
@@ -23,13 +38,18 @@ in {
       "code." = "code .";
 
       # Navigation
-      cdw = "cd ~/Work && cls";
-      cdc = "cd ~/Code && cls";
-      cdd = "cd ~/Desktop && cls";
+      cdw = "cd ~/Work && clear";
+      cdc = "cd ~/Code && clear";
+      cdd = "cd ~/Desktop && clear";
 
       # Nix-related utilities:
-      nd = "nix develop '.#' --command ${pkgs.fish}";
       ncfg = "code ${homeDirectory}/ncfg";
+      xx = let
+        cmd =
+          if isDarwin
+          then "home-manager switch"
+          else "sudo nixos-rebuild switch";
+      in "${cmd} --flake '${homeDirectory}/ncfg";
     };
 
     functions = {

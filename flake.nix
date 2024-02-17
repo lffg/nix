@@ -55,11 +55,41 @@
         ];
       };
   in {
+    # NixOS configurations
     nixosConfigurations = {
       hebra = mkNixosConfiguration {
         system = "x86_64-linux";
         host.name = "hebra";
-        user.name = "luiz";
+        user = rec {
+          name = "luiz";
+          home = "/home/${name}";
+        };
+      };
+    };
+
+    # Darwin home-manager configurations
+    packages = {
+      aarch64-darwin.homeConfigurations = let
+        vars = {
+          system = "aarch64-darwin";
+          host.name = "akkala";
+          user = rec {
+            name = "luiz";
+            home = "/Users/${name}";
+          };
+        };
+
+        inherit (importPkgsSets vars.system) pkgs pkgs-unstable;
+      in {
+        "${vars.user.name}" = inputs.home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+
+          extraSpecialArgs = {
+            inherit inputs pkgs-unstable vars;
+          };
+
+          modules = [(import ./home/home.nix)];
+        };
       };
     };
   };
