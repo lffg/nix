@@ -1,3 +1,4 @@
 [
+  ./dotfiles.nix
   ./pkgs.nix
 ]
