@@ -12,7 +12,11 @@ in {
 
   services.gpg-agent = mkIf isLinux {
     enable = true;
+    pinentryFlavor = "curses";
   };
+  home.packages = mkIf isLinux [
+    pkgs.pinentry-curses
+  ];
 
   # Git signing
   programs.git = let
