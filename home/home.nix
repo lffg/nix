@@ -7,7 +7,6 @@
 }: {
   imports = let
     commonModules = [
-      ../shared/nix.nix
       ./fonts.nix
       ./pkgs.nix
       ./git.nix
