@@ -49,7 +49,7 @@ in {
           if isDarwin
           then "home-manager switch"
           else "sudo nixos-rebuild switch";
-      in "${cmd} --flake '${homeDirectory}/ncfg";
+      in "${cmd} --flake '${homeDirectory}/ncfg'";
     };
 
     functions = {
