@@ -28,10 +28,7 @@ in {
     extraConfig = {
       commit.gpgsign = true;
       gpg.program = "${pkgs.gnupg}/bin/gpg2";
-      credential.helper =
-        if isDarwin
-        then "osxkeychain"
-        else null;
+      credential.helper = mkIf isDarwin "osxkeychain";
     };
   };
 }
