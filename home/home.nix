@@ -14,6 +14,7 @@
       ./vscode.nix
       ./security.nix
       ./fish.nix
+      ./starship.nix
     ];
     hostModules = import (./. + "/${vars.host.name}" + /default.nix);
   in
