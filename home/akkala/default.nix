@@ -1,3 +1,1 @@
-[
-  ../shared/darwin/pkgs.nix
-]
+import ../shared/darwin/default.nix
