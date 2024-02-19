@@ -24,6 +24,7 @@
     jq
     hexyl
     tokei
+    pkgs-unstable.ast-grep
 
     # Applications, GUIs, etc
     # pkgs-unstable.logseq
