@@ -5,6 +5,7 @@
 }: {
   imports = [
     ./pkgs/pg.nix
+    ./pkgs/openssl.nix
   ];
 
   home.packages = with pkgs; [
