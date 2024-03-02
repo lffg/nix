@@ -7,12 +7,12 @@
 }: {
   imports = let
     commonModules = [
+      ./programs/fish/default.nix
       ./fonts.nix
       ./pkgs.nix
       ./git.nix
       ./vscode.nix
       ./security.nix
-      ./fish.nix
       ./starship.nix
     ];
     hostModules = import (./. + "/${vars.host.name}" + /default.nix);

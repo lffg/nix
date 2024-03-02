@@ -5,6 +5,7 @@
   lib,
   ...
 }: let
+  inherit (pkgs.lib) optionalString;
   inherit (pkgs.stdenv) isDarwin;
   inherit (config.home) homeDirectory;
 in {
@@ -63,6 +64,28 @@ in {
 
     shellInit = ''
       set fish_greeting
+    '';
+
+    interactiveShellInit = let
+      fix-flake-path = pkgs.writeShellApplication {
+        name = "fix-flake-path";
+        text = builtins.readFile ./fix-flake-path.sh;
+      };
+
+      # HACK
+      # ====
+      #
+      # For some reason some specific-darwin paths (such as `/usr/local/bin`)
+      # are *prepended* when a new shell is opened, which overrides the specific
+      # paths that are defined when one enters a Nix flake dev shell.
+      #
+      # This tiny scripts changes those orders to prioritize paths that start
+      # with "/nix/store/".
+      darwinShellInit = ''
+        export PATH="$(${fix-flake-path}/bin/fix-flake-path)"
+      '';
+    in ''
+      ${optionalString isDarwin darwinShellInit}
     '';
   };
 }
