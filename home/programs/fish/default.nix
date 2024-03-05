@@ -22,6 +22,8 @@ in {
     enable = true;
 
     shellAliases = {
+      p = "pnpm";
+
       psqll = "PAGER='less -S' psql";
 
       nd = "nix develop '.#' --command ${pkgs.fish}/bin/fish";
@@ -31,8 +33,6 @@ in {
       # General commands:
       g = "git";
       cls = "clear";
-
-      p = "pnpm";
 
       # Typos:
       "cd.." = "cd ..";
