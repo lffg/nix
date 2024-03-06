@@ -6,4 +6,4 @@ My personal NixOS and home-manager configurations.
 
 - `hebra`
 - `akkala`
-- `lanayru` _(to be configured)_
+- `lanayru`
