@@ -41,10 +41,20 @@
 
   programs.fish.enable = true;
 
-  hardware = {
-    opengl.enable = true;
-    nvidia.modesetting.enable = true;
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
   };
+
+  hardware.nvidia = {
+    nvidiaSettings = true;
+    modesetting.enable = true;
+  };
+  boot.kernelParams = [
+    "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+  ];
+  services.xserver.videoDrivers = ["nvidia"];
 
   networking = {
     hostName = vars.host.name;
