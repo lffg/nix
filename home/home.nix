@@ -8,6 +8,7 @@
   imports = let
     commonModules = [
       ./programs/fish/default.nix
+      ./programs/rust/default.nix
       ./fonts.nix
       ./pkgs.nix
       ./git.nix

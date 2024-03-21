@@ -32,12 +32,8 @@
     # brave
     # spotify
 
-    # Programming languages, toolchains, and compilers
-    rustup
-    nodejs
-    (pkgs-unstable.elixir_1_16.override {
-      erlang = pkgs-unstable.erlang_26;
-    })
+    nodejs_20
+    nodePackages.pnpm
 
     # Programming language tools
     alejandra
