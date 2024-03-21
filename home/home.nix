@@ -15,7 +15,7 @@
       ./security.nix
       ./starship.nix
     ];
-    hostModules = import (./. + "/${vars.host.name}" + /default.nix);
+    hostModules = import (./. + "/hosts/${vars.host.name}" + /default.nix);
   in
     commonModules ++ hostModules;
 
