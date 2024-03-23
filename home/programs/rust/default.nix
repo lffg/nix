@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     rustup
+    gcc
   ];
 
   home.file.".cargo/config.toml".text = ''
