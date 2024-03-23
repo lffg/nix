@@ -8,6 +8,7 @@
 in {
   home.packages = with pkgs; [
     # Command-line tools
+    wl-clipboard
     pulseaudio
     inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
 
