@@ -20,8 +20,8 @@ in {
     okular
     # We install these via Homebrew on Darwin
     pkgs-unstable.logseq
-    brave
-    spotify
+    pkgs-unstable.brave
+    pkgs-unstable.spotify
   ];
 
   home.sessionVariables = {
