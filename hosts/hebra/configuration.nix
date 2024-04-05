@@ -49,6 +49,10 @@
   networking = {
     hostName = vars.host.name;
     networkmanager.enable = true;
+    nameservers = [
+      "8.8.8.8"
+      "1.1.1.1"
+    ];
   };
 
   # Just enough packages to get stated; all other packages
