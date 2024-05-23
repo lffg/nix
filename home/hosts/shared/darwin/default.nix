@@ -1,5 +1,5 @@
 [
-  ../../../shared/nix.nix
+  ../../../../shared/nix.nix
   ./dotfiles.nix
   ./pkgs.nix
 ]
