@@ -13,6 +13,7 @@
     git
     vim
     neovim
+    shellcheck
     bat
     eza
     htop
