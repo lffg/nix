@@ -12,7 +12,6 @@
 
       experimental-features = [
         "flakes"
-        "repl-flake"
         "nix-command"
       ];
 
