@@ -23,7 +23,7 @@ in {
     keys = {
       "hebra" = "E1FEC20C853E9736";
       "akkala" = "1AAB523B01D50CE9";
-      "lanayru" = "76C182B31CED00EA";
+      "lanayru" = "20B00E3DD5129CEC";
     };
   in {
     signing = {
