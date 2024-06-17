@@ -28,10 +28,8 @@
     tokei
     pkgs-unstable.ast-grep
 
-    # Applications, GUIs, etc
-    # pkgs-unstable.logseq
-    # brave
-    # spotify
+    go
+    gopls
 
     nodejs_20
     nodePackages.pnpm
