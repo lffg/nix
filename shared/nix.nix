@@ -1,10 +1,10 @@
 {
-  pkgs,
+  pkgs-unstable,
   vars,
   ...
 }: {
   nix = {
-    package = pkgs.nix;
+    package = pkgs-unstable.nix;
 
     settings = {
       sandbox = true;
