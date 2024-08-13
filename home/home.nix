@@ -12,7 +12,6 @@
       ./fonts.nix
       ./pkgs.nix
       ./git.nix
-      ./vscode.nix
       ./security.nix
       ./starship.nix
     ];
