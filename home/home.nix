@@ -9,6 +9,7 @@
     commonModules = [
       ./programs/fish/default.nix
       ./programs/rust/default.nix
+      ./programs/utils/default.nix
       ./fonts.nix
       ./pkgs.nix
       ./git.nix
