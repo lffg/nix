@@ -32,7 +32,8 @@
     gopls
 
     nodejs_20
-    nodePackages.pnpm
+    pkgs-unstable.nodePackages.pnpm
+    pkgs-unstable.nodePackages.yarn
 
     # Programming language tools
     alejandra
