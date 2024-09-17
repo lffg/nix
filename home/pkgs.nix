@@ -31,6 +31,8 @@
     go
     gopls
 
+    jdk
+
     nodejs_20
     pkgs-unstable.nodePackages.pnpm
     pkgs-unstable.nodePackages.yarn
