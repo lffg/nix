@@ -37,5 +37,8 @@
 
     # Programming language tools
     alejandra
+
+    # Other
+    ledger
   ];
 }
