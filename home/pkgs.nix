@@ -28,8 +28,8 @@
     tokei
     pkgs-unstable.ast-grep
 
-    go
-    gopls
+    pkgs-unstable.go
+    pkgs-unstable.gopls
 
     jdk
 
